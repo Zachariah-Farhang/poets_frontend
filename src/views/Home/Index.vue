@@ -1,6 +1,8 @@
 <template>
   <div>
     <div class="container mt-4">
+      <h1>{{ user.name }}</h1>
+      <hr>
       <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3">
           <Card style="margin-bottom: 2em">
@@ -84,6 +86,11 @@ import Button from 'primevue/button';
 import Card from 'primevue/card';
 
 export default {
+  data() {
+    return {
+      user: window.reactStore.user,
+    }
+  },
   components:{
     Card,
     Button

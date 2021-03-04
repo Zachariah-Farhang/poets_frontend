@@ -9,7 +9,7 @@
       </template>
 
       <template #end>
-        <Button @click="$router.push({name:'Login'})" label="Logout" icon="pi pi-power-off" class="p-button-text" style="color:var(--text-color)" />
+        <Button @click="logout()" label="Logout" icon="pi pi-power-off" class="p-button-text" style="color:var(--text-color)" />
       </template>
 
     </Menubar>
@@ -22,6 +22,13 @@ import Button from 'primevue/button';
 import Menubar from 'primevue/menubar';
 
 export default {
+  methods: {
+    logout(){
+      window.reactStore.user = null
+      this.$router.push({name:'Login'})
+    }
+  },
+
   data() {
     return {
       items:[

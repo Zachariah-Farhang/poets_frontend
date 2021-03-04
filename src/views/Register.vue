@@ -19,29 +19,32 @@
           <form action="#" method="post" @submit.prevent="submit">
             <div class="p-fluid">
               <span class="p-float-label mt-4" style="width:100%">
-                <InputText id="name" v-model="name" :class="{'p-invalid':EIM}"/>
+                <InputText id="name" v-model="name" :class="{'p-invalid':NIM}"/>
                 <label for="name">Full name</label>
               </span>
+              <small v-if="NIM" class="p-error">{{ NIM }}</small>
               <span class="p-float-label mt-4" style="width:100%">
-                <InputText id="username" v-model="username" :class="{'p-invalid':EIM}"/>
-                <label for="username">Email</label>
+                <InputText id="email" v-model="email" :class="{'p-invalid':EIM}"/>
+                <label for="email">Email</label>
               </span>
               <small v-if="EIM" class="p-error">{{ EIM }}</small>
               <span class="p-float-label mt-4" style="width:100%">
                 <Password :feedback="false" toggleMask id="password" v-model="password" :class="{'p-invalid':PIM}"/>
                 <label for="password">New password</label>
               </span>
-
+              <div v-if="PIM">
+                <small class="p-error">{{ PIM }}</small>
+              </div>
+              
               <ToggleButton
                 class="mt-3"
-                v-model="isShaayr"
-                onLabel="I Shaayr"
-                offLabel="I Reader"
+                v-model="isPoet"
+                onLabel="I'm Poet"
+                offLabel="I'm Reader"
                 onIcon="pi pi-pencil"
                 offIcon="pi pi-user"
                 style="width: 10em" />
               
-              <small v-if="PIM" class="p-error">{{ PIM }}</small>
             </div>
             
             <p class="mt-2">
@@ -80,16 +83,18 @@ import Button from 'primevue/button';
 import Password from 'primevue/password';
 import Message from 'primevue/message';
 import ToggleButton from 'primevue/togglebutton';
+import validator from '@/helpers/validation'
 
 export default {
   data() {
     return {
-      isShaayr:false,
+      isPoet:false,
       name:null,
-      username:null,
+      email:null,
       password:null,
       PIM:null,
       EIM:null,
+      NIM:null,
       msgs:[
         // {
         //   type:'success',
@@ -100,11 +105,38 @@ export default {
   },
   methods: {
     submit(){
+      let validate = validator({
+        name: 'required',
+        email: 'required',
+        password: 'required',
+      },this)
+      if (validate !== true) {
+        this.msgs = []
+        this.msgs.push({
+          type: 'error',
+          msg: validate.msg
+        })
+        this.PIM = this.EIM = this.NIM = null
+        switch (validate.item) {
+          case 'password':
+            this.PIM = validate.msg
+            break;
+          
+          case 'email':
+            this.EIM = validate.msg
+            break;
+
+          case 'name':
+            this.NIM = validate.msg
+            break;
+        }
+        return;
+      }
       window.reactStore.progress(true)
       window.reactStore.user = {
-        isShaayr:this.isShaayr,
+        isPoet:this.isPoet,
         name: this.name,
-        username: this.username,
+        email: this.email,
         password: this.password
       }
       setTimeout(()=>{
