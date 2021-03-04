@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container mt-4">
-      <h1>{{ user.name }}</h1>
+      <h1>{{ user ? user.name : 'Gust' }}</h1>
       <hr>
       <div class="row">
         <div class="col-sm-6 col-md-4 col-lg-3">

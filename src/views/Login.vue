@@ -32,12 +32,12 @@
             
             <p class="mt-2">
               <a style="color:var(--blue-500)" href="/about">Forgot password?</a>
-              <router-link class="ml-3" style="color:var(--blue-500)" :to="{name:'Register'}">Sign up?</router-link>
             </p>
             
             <Toolbar class="p-0 pt-3">
               <template #left>
                 <Button
+                  @click="this.$router.push({name:'Register'})"
                   label="New account"
                   icon="pi pi-plus"
                   class="p-button-text p-button-sm" />

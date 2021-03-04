@@ -47,15 +47,12 @@
               
             </div>
             
-            <p class="mt-2">
-              <router-link style="color:var(--blue-500)" :to="{name:'Login'}">Sign in?</router-link>
-            </p>
-            
             <Toolbar class="p-0 pt-3">
               <template #left>
                 <Button
-                  label="New account"
-                  icon="pi pi-plus"
+                  @click="$router.push({name:'Login'})"
+                  label="Login"
+                  icon="pi pi-lock-open"
                   class="p-button-text p-button-sm" />
               </template>
 

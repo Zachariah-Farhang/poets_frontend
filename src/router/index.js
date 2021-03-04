@@ -7,9 +7,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && to.name !== 'Register' && !window.reactStore.user)
-    next({ name: 'Login' })
-  else
+  // if (to.name !== 'Login' && to.name !== 'Register' && !window.reactStore.user)
+  //   next({ name: 'Login' })
+  // else
     next()
 })
 
