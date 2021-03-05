@@ -12,11 +12,3 @@ $ cd asoodaowar_poets
 $ npm install
 $ npm run serve
 ```
-## for build
-```bash
-$ npm run build
-<<<<<<< HEAD
-```
-=======
-```
->>>>>>> 5992a99084c62ed9f0968a83f67801330f821ffe
